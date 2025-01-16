@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1>Login</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="userid" class="form-label">userid</label>
+      <input type="text" class="form-control" id="userid" placeholder="userid" name="username">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">password</label>
+      <input type="password" class="form-control" id="password" placeholder="password" name="password">
+    </div>
+    <button class="btn btn-primary">로그인</button>
+  </form>
+{% endblock content %}

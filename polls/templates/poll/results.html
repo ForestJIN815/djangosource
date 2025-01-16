@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      익명투표 결과 -
+      {{question.question_text}}
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for choice in question.choice_set.all %}
+        <li class="list-group-item">
+          {{choice.choice_text}}
+          --
+          {{choice.votes}}
+          <a href=""></a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="mt-3">
+    <a href="{% url "poll:detail" question.id %}">재투표</a>
+  </div>
+{% endblock content %}

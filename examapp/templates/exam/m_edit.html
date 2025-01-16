@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+  {% comment %}  
+    form 을 화면에 보여주기
+    1. {{form}} : div 로 요소를 보여줌
+    2. form 을 풀어서 코드 작성
+    3. 직접 코드 작성
+    4. crispy 라이브러리 사용
+    5. django-bootstrap5 라이브러리 사용
+  {% endcomment %}
+{% block content %}
+  <h1>Musician Edit</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {% for field in form  %}
+      <div class="form-group mb-3">
+        {{field.label_tag}}
+        <input type="{field.widget_type}" class="form-control" id="{{field.id_for_label}}" name="{{field.name}}" value="{{field.value}}">
+      </div>
+      {% if  field.errors %}
+        {{field.errors}}
+      {% endif %}
+    {% endfor %}
+      <button type="submit" class="btn btn-primary">수정</button>
+    </form>
+{% endblock content %} 

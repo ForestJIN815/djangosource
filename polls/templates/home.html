@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1>HOME</h1>
+  <ul>
+    <li>
+      <a href="{% url "poll:index" %}">
+        익명 투표
+      </a>
+    </li>
+  </ul>
+{% endblock content %}

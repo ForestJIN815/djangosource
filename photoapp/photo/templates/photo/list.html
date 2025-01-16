@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>photo list</title>
+{% endblock title %}
+
+{% block content %}
+  <div class="row pb-3 justify-content-between">
+    <div class="col-4">
+      <h1>
+        Photo List
+      </h1>
+    </div>
+    <div class="col-3">
+      <a href="{% url "photo_post" %}" class="btn btn-success">New photo</a>
+    </div>
+  </div>
+  {% for photo in photos %}
+    <div class="row py-3">
+      <div class="col">
+        <h4>
+          <!-- 사진 제목 -->
+          <a href="{% url "photo_detail" id=photo.id %}">{{photo.title}}</a>
+        </h4>
+      </div>
+      <div class="col">
+        <!-- 사진 -->
+        <img src="{{photo.image}}" alt="{{photo.title}}">
+      </div>
+      <div class="col">
+        <!-- 사진 작성자, 가격 -->
+        <p>{{photo.author}},
+          {{photo.price}}</p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock content %}

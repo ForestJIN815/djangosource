@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>photo 상세</title>
+{% endblock title %}
+
+{% block content %}
+  <form action="" method="post">
+    <div class="mb-3 row">
+      <label for="title" class="col-sm-2 col-form-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" readonly="readonly" class="form-control" id="title" name="title" value="{{photo.title}}">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="author" class="col-sm-2 col-form-label">Author</label>
+      <div class="col-sm-10">
+        <input type="text" readonly="readonly" class="form-control" id="author" name="author" value="{{photo.author}}">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="image" class="col-sm-2 col-form-label">Image</label>
+      <div class="col-sm-10">
+        <img src="{{photo.image}}" alt="{{photo.title}}">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="description" class="col-sm-2 col-form-label">Description</label>
+      <div class="col-sm-10">
+        <textarea name="description" id="description" cols="3" readonly="readonly" class="form-control">{{photo.description}}</textarea>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="price" class="col-sm-2 col-form-label">Price</label>
+      <div class="col-sm-10">
+        <input type="number" readonly="readonly" class="form-control" id="price" name="price" value="{{photo.price}}">
+      </div>
+    </div>
+    <div>
+      <a href="{% url "photo_list" %}" class="btn btn-success">목록</a>
+      <a href="{% url "photo_edit" id=photo.id %}" class="btn btn-primary">수정</a>
+    </div>
+  </form>
+{% endblock content %}

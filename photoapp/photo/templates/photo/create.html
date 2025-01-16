@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>photo 생성</title>
+{% endblock title %}
+
+{% block content %}
+  {% include "form_errors.html" %}
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3 row">
+      <label for="title" class="col-sm-2 col-form-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="title" name="title">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="author" class="col-sm-2 col-form-label">Author</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="author" name="author">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="image" class="col-sm-2 col-form-label">Image</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="image" name="image">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="description" class="col-sm-2 col-form-label">Description</label>
+      <div class="col-sm-10">
+        <textarea name="description" id="description" cols="3" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="price" class="col-sm-2 col-form-label">Price</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="price" name="price">
+      </div>
+    </div>
+    <div>
+      <a href="{% url "photo_list" %}" class="btn btn-success">목록</a>
+      <button type="submit" class="btn btn-primary">작성</button>
+    </div>
+  </form>
+{% endblock content %}

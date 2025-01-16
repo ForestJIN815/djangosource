@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Musician List</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>이름</th>
+        <th>악기</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in musicians %}
+        <tr>
+          <td>
+            <a href="{% url "musician_detail" pk=m.id %}">{{m.name}}</a>
+          </td>
+          <td>{{m.instrument}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

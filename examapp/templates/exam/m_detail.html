@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+  {% comment %}  
+    form 을 화면에 보여주기
+    1. {{form}} : div 로 요소를 보여줌
+    2. form 을 풀어서 코드 작성
+    3. 직접 코드 작성
+    4. crispy 라이브러리 사용
+    5. django-bootstrap5 라이브러리 사용
+  {% endcomment %}
+{% block content %}
+  <h1>Musician Detail</h1>
+  <form action="" method="post">    
+      <div class="form-group mb-3">       
+        <input type="text" class="form-control" id="name" name="name" value="{{musician.name}}">
+      </div>  
+      <div class="form-group mb-3">       
+        <input type="text" class="form-control" id="instrument" name="instrument" value="{{musician.instrument}}">
+      </div>       
+      <a href="{% url "musician_edit" musician.id %}" class="btn btn-primary">수정</a>
+    </form>
+{% endblock content %} 

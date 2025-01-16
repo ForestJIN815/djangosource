@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>todo 목록</title>
+{% endblock title %}
+
+{% block content %}
+  <h1>ToDo List</h1>
+  <div>
+    <a href="{% url "todo_done" %}" class="btn btn-primary">완료목록</a>
+    <a href="{% url "todo_register" %}" class="btn btn-success">todo작성</a>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">할일</th>
+        <th scope="col">작성일</th>
+        <th scope="col">중요도</th>
+        <th scope="col">완료여부</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in todos %}
+        <tr>
+          <th scope="row">{{todo.id}}</th>
+          <td>
+            <a href="{% url "todo_detail" id=todo.id %}">{{todo.title}}</a>
+          </td>
+          <td>{{todo.created_at}}</td>
+          <td>{{todo.important}}</td>
+          <td>{{todo.completed}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}
