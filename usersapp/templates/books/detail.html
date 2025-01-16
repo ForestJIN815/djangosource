@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <form>
+    <div class="mb-3">
+      <label for="code" class="form-label">도서코드</label>
+      <input type="text" class="form-control" id="code" name="code" value="{{book.code}}" readonly="readonly">
+    </div>
+    <div class="mb-3">
+      <label for="title" class="form-label">도서명</label>
+      <input type="text" class="form-control" id="title" name="title" value="{{book.title}}" readonly="readonly">
+    </div>
+    <div class="mb-3">
+      <label for="author" class="form-label">저자</label>
+      <input type="text" class="form-control" id="author" name="author" value="{{book.author}}" readonly="readonly">
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">도서가격</label>
+      <input type="text" class="form-control" id="price" name="price" value="{{book.price}}" readonly="readonly">
+    </div>
+    <div class="mb-3">
+      <label for="created_at" class="form-label">입력날짜</label>
+      <input type="text" class="form-control" id="created_at" name="created_at" value="{{book.created_at}}" readonly="readonly">
+    </div>
+    {% if user.is_authenticated and user.is_superuser %}
+      <a class="btn btn-success" href="{% url "books:edit" book.id %}">수정</a>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url "books:list" %}">목록</a>
+  </form>
+{% endblock content %}

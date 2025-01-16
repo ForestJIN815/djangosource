@@ -23,14 +23,14 @@
         {% endif %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Book
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="{% url "books:list" %}">List</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="{% url "books:create" %}">Create</a>
             </li>
             <li>
               <hr class="dropdown-divider">

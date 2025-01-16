@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">도서코드</th>
+        <th scope="col">도서명</th>
+        <th scope="col">저자</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in book_list %}
+        <tr>
+          <th scope="row">{{book.id}}</th>
+          <td>{{book.code}}</td>
+          <td>
+            <a href="{% url "books:detail" book.id %}" class="text-decoration-none text-reset">{{book.title}}</a>
+          </td>
+          <td>{{book.author}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

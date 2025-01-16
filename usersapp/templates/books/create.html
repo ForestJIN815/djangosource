@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <form method="post" action="">
+    {% include "form_errors.html" %}
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group mb-3">
+        <label for="{{field.id_for_label}}">{{field.label}}</label>
+        <input type="{{field.widget_type}}" class="form-control" id="{{field.id_for_label}}" name="{{field.name}}" placeholder="{{field.label}}" value="{{field.value|default_if_none:''}}">
+        <span class="text-danger small">{{field.help_text}}</span>
+      </div>
+    {% endfor %}
+    {% if user.is_authenticated and user.is_superuser %}
+      <button type="submit" class="btn btn-success" href="">등록</button>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url "books:list" %}">목록</a>
+  </form>
+{% endblock content %}
