@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blogs",
     "users",
+    "taggit",
+    "django_social_share",
 ]
 
 MIDDLEWARE = [

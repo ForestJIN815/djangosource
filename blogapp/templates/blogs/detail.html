@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+  <style>
+    span {
+      cursor: pointer;
+    }
+
+    .dislike,
+    .like {
+      display: none;
+    }
+
+    .show {
+      display: inline-block;
+    }
+  </style>
+{% endblock style %}
+{% block content %}
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7">
+      <!-- Post detail-->
+      <h3 class="border-bottom pb-2">
+        <!--제목-->
+        {{post.title}}
+      </h3>
+    </div>
+  </div>
+{% endblock content %}
+<div class="row gx-4 gx-lg-5 justify-content-center">
+  <div class="col-md-10 col-lg-8 col-xl-7">
+    <!--이미지-->
+    {% if post.image %}
+      <img src="{{post.image.url}}" alt="" class="mx-auto=" mx-auto="mx-auto" d-block"=" d-block""=" d-block" "">
+    {% endif %}
+  </div>
+</div>
+<div class=" row gx-4 gx-lg-5 justify-content-center">
+  <div class="col-md-10 col-lg-8 col-xl-7">
+    <p>
+      <!--본문-->
+      {{post.content}}
+      <p></div>
+    </div>
+    <!--tag-->
+    <div class="row gx-4 gx-lg-5 justify-content-center mb-3">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        {% for tag in post.tags.all %}
+          <span class="badge text-bg-secondary">#{{tag.name}}</span>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <a href="{% url "blogs:update" post.pk %}" class="btn btn-info">수정</a>
+        <a href="{% url "blogs:list" %}" class="btn btn-success">목록</a>
+      </div>
+    </div>
+
+    <!--좋아요-->
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7 border-bottom p-3" id="like-section">
+        <span class="like {% if is_liked %}show{% endif %}">
+          <i class="fa-soild fa-heart fg-lg" style="color:#70808;"></i>
+        </span>
+        <span class="dislike {% if not is_liked %}show{% endif %}">
+          <i class="fa-regular fa-heart fg-lg" style="color:#70808;"></i>
+        </span>
+        <span class="like-total d-inline-block mx-2 fs-6">
+          좋아요
+          <span>{{post.likes.count}}</span>
+          개
+        </span>
+      </div>
+    </div>
+    <!--댓글목록-->
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10">
+        <div class="card-md-5">
+          <div class="card-header">
+            <i class="fa-regular fa-comments"></i>
+            comments
+          </div>
+          {% for comment in post.comment_set.all %}
+            <div class="card-body">
+              <h5 class="card-title">
+                <!--댓글내용-->
+                {{comment.content}}
+              </h5>
+              <div class="card-text text-end fs-6 bg-light">
+                <!--댓글작성자-->
+                {{comment.user.name}}
+                - ({{comment.created_at}})
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!--댓글등록-->
+    {% if user.is_authenticated %}
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7 border-bottom p-3">
+          <!--에러 메세지-->
+          {% if messages %}
+            {% for msg in messages %}
+              <div class="alert alert-danger">
+                <strong>{{msg}}</strong>
+              </div>
+            {% endfor %}
+          {% endif %}
+          <form action="{% url "blogs:comment_create" %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="post_pk" value="{{post.pk}}">
+            <div class="form-group mb-3">
+              <textarea name="content" id="content" class="form-control" rows="5"></textarea>
+            </div>
+            <button class="btn btn-secondary">댓글작성</button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+
+    {% include "social.html" %}
+  {% endblock content %}
+  {% block script %}
+    <script>
+      const post_pk = '{{post.pk}}';
+    </script>
+    <script src="{% static "js/detail.js" %}"></script>
+  {% endblock scrip %}

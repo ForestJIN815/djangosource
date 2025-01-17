@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_staff", True)
 
-        return self._create_user(email, password, name)
+        return self._create_user(email, password, name, **extra_fields)
 
 
 # User 를 직접 지정

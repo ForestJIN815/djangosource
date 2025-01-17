@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7">
+      <form action="" method="post" enctype="multipart/form-data">
+        {% include "form_errors.html" %}
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="user" class="form-label">작성자</label>
+          <input type="text" class="form-control" id="user" name="user" value="{{request.user.name}}">
+        </div>
+        <div class="mb-3">
+          <label for="title" class="form-label">제목</label>
+          <input type="text" class="form-control" id="title" name="title" value="{{form.title.value}}">
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">내용</label>
+          <textarea type="content" class="form-control" id="content" rows="10">{{form.content.value}}</textarea>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">이미지</label>
+        </div>
+        <div class="mb-3">
+          {% if form.image.value %}
+            <div class="col-auto">
+              현재
+            </div>
+            <div class="col-auto">
+              <a href="{{form.image.value.url}}">
+                <span>{{form.image.value.name}}</span></a>
+            </div>
+            <div class="col-auto">
+              <input type="checkbox" class="form-check-input" id="image-clear_id" name="image-clear">
+              <label class="form-check-label" for="image-clear-id">이미지 제거</label>
+            </div>
+          {% endif %}
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">변경</label>
+          <input type="file" name="image" id="image" class="form-control">
+        </div>
+        <div class="form-group mb-3">
+          <button class="btn btn-primary">수정</button>
+          <a href="{% url "blogs:list" %}" class="btn btn-success">목록</a>
+          <a href="{% url "blogs:delete" pk %}" class="btn btn-danger">삭제</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock content %}
