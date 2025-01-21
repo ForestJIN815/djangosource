@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>답변</title>
+{% endblock title %}
+{% block content %}
+  <h5 class="my-3 border-bottom pb-2">답변 수정</h5>
+  <form action="" method="post">
+    {% include "form_errors.html" %}
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group mb-3">
+        <label for="{{field.id_for_label}}">{{field.label}}</label>
+        {% if field.name == 'content' %}
+          <textarea name="{{field.name}}" class="form-control" id="{{field.id_for_label}}" rows="10" placeholder="{{field.label}}">{{field.value|default_if_none:''}}</textarea>
+        {% else %}
+          <input type="{{field.widget_type}}" class="form-control" id="{{field.id_for_label}}" name="{{field.name}}" placeholder="{{field.label}}" value="{{field.value|default_if_none:''}}">
+        {% endif %}
+        <span class="text-danger small">{{field.help_text}}</span>
+      </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+      <button type="submit" class="btn btn-success" href="">수정</button>
+    {% endif %}
+    <a class="btn btn-primary" href="{% url "board:index" %}">목록</a>
+  </form>
+{% endblock content %}
