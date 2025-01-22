@@ -22,6 +22,9 @@
               <a class="dropdown-item" href="{% url "users:login" %}">로그인</a>
             </li>
             <li>
+              <a class="dropdown-item" href="{% url "users:password_reset" %}">비밀번호 초기화</a>
+            </li>
+            <li>
               <hr class="dropdown-divider">
             </li>
             {% else %}
@@ -29,7 +32,7 @@
               <a class="dropdown-item" href="#" id="logout">로그아웃</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#">비밀번호변경</a>
+              <a class="dropdown-item" href="{% url "users:password_change" %}">비밀번호변경</a>
             </li>
             {% endif %}
           </ul>

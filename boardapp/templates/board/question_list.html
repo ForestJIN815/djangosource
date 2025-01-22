@@ -29,6 +29,7 @@
           <th>제목</th>
           <th>작성자</th>
           <th>작성일시</th>
+          <th>조회수</th>
         </tr>
       </thead>
       <tbody>
@@ -67,6 +68,9 @@
               <!-- 질문 작성일시-->
               {{question.created_at}}
             </td>
+            <td>
+              {{question.view_cnt}}
+            </td>
           </tr>
         {% endfor %}
       </tbody>
@@ -75,14 +79,14 @@
       <ul class="pagination justify-content-center">
         {% if question_list.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="?page={{question_list.previous_page_number}}">Previous</a>
+            <a class="page-link" href="{{question_list.previous_page_number}}">Previous</a>
           </li>
         {% endif %}
 
         {% for page in question_list.paginator.page_range %}
           {% if page >= question_list.number|add:-5 and page <= question_list.number|add:5%}
             <li class="page-item  {% if page == question_list.number %}active{% endif %}" aria-current="page">
-              <a class="page-link" href="?page={{page}}">{{page}}</a>
+              <a class="page-link" href="{{page}}">{{page}}</a>
             </li>
           {% endif %}
         {% endfor %}

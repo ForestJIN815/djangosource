@@ -97,6 +97,14 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-1"></div>
+      <div class="col-11">
+        <a href="#" class="btn btn-success btn-sm my-4">
+          목록으로
+        </a>
+    </div>
+  </div>
   <!-- 원 질문에 대한 답변 영역-->
   <h5 class="border-bottom my-3 py-2">
     <!--답변 개수-->
@@ -185,8 +193,19 @@
     <div class="form-group mb-3">
       <textarea name="content" id="content" rows="5" class="form-control" {% if not user.is_authenticated %}disabled{% endif %}></textarea>
     </div>
+    <input type="hidden" name="page" id="page" class="form-control" value="{{page}}">
+    <input type="hidden" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
+    <input type="hidden" name="so" id="so" class="form-control" value="{{so|default_if_none:''}}">
     <button class="btn btn-primary">답변 등록</button>
   </form>
+
+ <!--페이지 나누기 정보-->
+ <form action="{% url "board:index" %}" method="get" id="actionForm">
+  <input type="hidden" name="page" id="page" class="form-control" value="{{page}}">
+  <input type="hidden" name="keyword" id="keyword" class="form-control" value="{{keyword|default_if_none:''}}">
+  <input type="hidden" name="so" id="so" class="form-control" value="{{so|default_if_none:''}}">
+</form>
+
 {% endblock content %}
 {% block script %}
   <script src="{% static "js/detail.js" %}"></script>

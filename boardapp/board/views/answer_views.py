@@ -41,6 +41,12 @@ def answer_delete(request, id):
 @login_required(login_url="users:login")
 def answer_create(request, id):
 
+    page = request.POST.get("page", 1)
+    # 검색
+    keyword = request.POST.get("keyword", "")
+    # 정렬기준
+    so = request.POST.get("so", "")
+
     question = get_object_or_404(Question, id=id)
 
     # form 사용방식
@@ -52,10 +58,15 @@ def answer_create(request, id):
             answer.question = question
             answer.author = request.user
             answer.save()
+
             # return redirect("board:detail", id)
+
             return redirect(
-                "{}#answer_{}".format(resolve_url("board:detail", id), answer.id)
+                "{}?page={}&keyword={}&so={}#answer_{}".format(
+                    resolve_url("board:detail", id), page, keyword, so, answer.id
+                )
             )
+
     else:
         form = AnswerForm()
 
@@ -74,5 +85,12 @@ def answer_create(request, id):
     # question.answer_set.create(content=content)
     # return redirect("board:detail", id)
 
-    context = {"form": form, "question": question}
+    context = {
+        "form": form,
+        "question": question,
+        "page": page,
+        "keyword": keyword,
+        "so": so,
+    }
+
     return render(request, "board/question_detail.html", context)

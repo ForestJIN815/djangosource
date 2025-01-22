@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-pe&xw@gvyuip)csm4l-!q=@u1i*mw04tsh%2mh8ukqoatmh^p1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "soldesk.pythonanywhere.com"]
 
 
 # Application definition
@@ -37,8 +37,22 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    # 구글로그인
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+    # "allauth.socialaccount.providers.kakao",
     "board",
     "users",
+]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by email
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 MIDDLEWARE = [
@@ -49,6 +63,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -128,3 +144,26 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # 로그인,로그아웃 성공시 경로 변경
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+# 이메일 발송 설정
+DEFAULT_FROM_EMAIL = "pjky5@naver.com"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.naver.com"
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = "pjky5"
+EMAIL_HOST_PASSWORD = "thsdnjsvlf25"
+EMAIL_PORT = 465
+
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SITE_ID = 2
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        # "APP": {"client_id": "123", "secret": "456", "key": ""}
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "offline"},
+    }
+}
